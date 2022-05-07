@@ -276,5 +276,6 @@ public class Member {
         - fetch type 을 lazy로 설정
     - @OneToMany : 일대다 관계
         - fetch type 기본값은 lazy
+        
  
  
