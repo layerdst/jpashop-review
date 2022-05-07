@@ -24,7 +24,7 @@
   <component name="ChangeListManager">
     <list default="true" id="616362dd-30b9-42f5-bb09-e46947844767" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jpabook/jpashop/repository/ItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/jpabook/jpashop/repository/ItemRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +107,7 @@
       <workItem from="1651737631849" duration="6913000" />
       <workItem from="1651811444661" duration="3095000" />
       <workItem from="1651815005047" duration="6364000" />
-      <workItem from="1651917572462" duration="1772000" />
+      <workItem from="1651917572462" duration="3003000" />
     </task>
     <servers />
   </component>
