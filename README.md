@@ -259,3 +259,22 @@ public class Member {
     - IDENTITY : JPA 는 영속성컨텍스트가 transaction 이 commit 되는 시점에 저장이 되는데, 이 전략을 쓸경우 EntityManager 가 persist 하는 시점에 insert 쿼리가 실행되고, id 값을 받아, 영속성 컨텍스트의 엔티티에 저장된다.
     
     - SEQUENCE : em.persist 시점에 시퀀스를 가져와서 영속성 컨텍스트의 엔티티에 저장이 되는데, 여러번 호출시에 메모리에 부담이 있을수 있어서 SequenceGenerator 옵션에 allocaotionSize="50" 정도를 설정해 놓는다(DB 풀링과 비슷)
+
+
+## 연관관계 
+- DB는 테이블간의 외래키로 연관관계를 맺는데, 객체는 참조(주소)로 연관관계를 맺는다.
+- DB는 외래키를 사용하여 양방향 연관관계를 갖지만 객체는 단방향이다. 
+    ```
+    객체 -> a.getB().getC
+    DB -> A JOIN B , B JOIN A    
+    ```
+ - 연관관계 표현 
+    - @ManyToOne : 다대일 관계
+        - fetch type 은 eager 가 default 이니, lazy 로 설정해야함
+        - cascade 는 로직에 맞게 수정하는게 맞음
+    - @OneToOne : 일대일 관계
+        - fetch type 을 lazy로 설정
+    - @OneToMany : 일대다 관계
+        - fetch type 기본값은 lazy
+ 
+ 
