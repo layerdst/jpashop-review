@@ -5,7 +5,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+<<<<<<< HEAD
 import java.util.List;
+=======
+>>>>>>> aa7e07f8ce8645c608d486b85fc6acf20dce38f3
 
 @Repository
 @RequiredArgsConstructor
@@ -20,6 +23,7 @@ public class ItemRepository {
         }
     }
 
+<<<<<<< HEAD
     public Item findOne(Long id){
         return em.find(Item.class, id);
     }
@@ -28,4 +32,6 @@ public class ItemRepository {
         return em.createQuery("select i from Item i", Item.class).getResultList();
     }
 
+=======
+>>>>>>> aa7e07f8ce8645c608d486b85fc6acf20dce38f3
 }
