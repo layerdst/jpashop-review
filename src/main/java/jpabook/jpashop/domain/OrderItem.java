@@ -35,7 +35,7 @@ public class OrderItem {
         return getOrderPrice() * getCount();
     }
 
-    public OrderItem createOrderItem(Item item, int orderPrice, int count){
+    public static OrderItem createOrderItem(Item item, int orderPrice, int count){
         OrderItem orderItem = new OrderItem();
         orderItem.setCount(count);
         orderItem.setItem(item);
