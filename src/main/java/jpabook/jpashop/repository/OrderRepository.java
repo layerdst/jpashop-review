@@ -73,4 +73,24 @@ public class OrderRepository {
                                     "join fetch oi.item i ", Orders.class).getResultList();
 
     }
+
+
+    public List<Orders> findAllWithMemberDelivery() {
+        return em.createQuery("select distinct o from Orders o " +
+                "join fetch o.member m " +
+                "join fetch o.delivery d ", Orders.class ).getResultList();
+    }
+
+    /**
+     * fetch 조인시 페이징의 문제가 발생할 수 있다.
+     * 1. ToOne 의 조건에만 fetch 조인을 적용한다
+     * 2. application.yml 의 hibernate.default_batch_fetch_size 설정을 통해
+     *   in 쿼리를 적용할 수 있게끔 하여 N+1 문제를 일부 해결이 가능하다.
+     * */
+    public List<Orders> findAllWithMemberDelivery(int offset, int limit) {
+        return em.createQuery("select distinct o from Orders o " +
+                "join fetch o.member m " +
+                "join fetch o.delivery d ", Orders.class)
+                .setFirstResult(offset).setMaxResults(limit).getResultList();
+    }
 }
