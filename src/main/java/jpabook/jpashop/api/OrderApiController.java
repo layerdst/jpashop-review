@@ -7,6 +7,9 @@ import jpabook.jpashop.repository.orders.query.OrderItemQueryDto;
 import jpabook.jpashop.repository.orders.query.OrderQueryDto;
 import jpabook.jpashop.repository.orders.query.OrderQueryRepository;
 
+import jpabook.jpashop.service.query.OrderDto;
+import jpabook.jpashop.service.query.OrderItemDto;
+import jpabook.jpashop.service.query.OrderQuerySerivce;
 import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +25,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class OrderApiController {
 
+    private final OrderQuerySerivce orderQuerySerivce;
     private final OrderRepository orderRepository;
     private final OrderQueryRepository orderQueryRepository;
 
@@ -57,12 +61,7 @@ public class OrderApiController {
 
     @GetMapping("/api/v3/orders")
     public List<OrderDto> ordersV3(){
-        List<Orders> all = orderRepository.findAllWithItem();
-
-        List<OrderDto> result = all.stream()
-                .map(o -> new OrderDto(o))
-                .collect(Collectors.toList());
-        return result;
+        return orderQuerySerivce.ordersV3();
     }
 
     /**
@@ -94,8 +93,8 @@ public class OrderApiController {
         return flats.stream()
                 .collect(
                         Collectors.groupingBy(o -> new OrderQueryDto(o.getOrderId(), o.getName(), o.getOrderDate(), o.getOrderStatus(), o.getAddress()),
-                                Collectors.mapping(o -> new OrderItemQueryDto(o.getOrderId(), o.getItemName(), o.getOrderPrice(), o.getCount()),
-                                        Collectors.toList()))).entrySet().stream()
+                        Collectors.mapping(o -> new OrderItemQueryDto(o.getOrderId(), o.getItemName(), o.getOrderPrice(), o.getCount()),
+                        Collectors.toList()))).entrySet().stream()
                 .map(e -> new OrderQueryDto(e.getKey().getOrderId(),
                         e.getKey().getName(),
                         e.getKey().getOrderDate(),
@@ -105,45 +104,4 @@ public class OrderApiController {
                 .collect(Collectors.toList());
     }
 
-
-
-    @Data
-    static class OrderDto{
-        private Long orderId;
-        private String name;
-        private LocalDateTime orderDate;
-        private OrderStatus orderStatus;
-        private Address address;
-        private List<OrderItemDto> orderItems;
-
-        public OrderDto(Orders o){
-            orderId = o.getId();
-            name = o.getMember().getName();
-            orderDate = o.getOrderDate();
-            orderStatus = o.getOrderStatus();
-            address = o.getDelivery().getAddress();
-
-//            o.getOrderItems().stream().forEach(os -> os.getItem().getName());
-//            orderItems = o.getOrderItems();
-
-            orderItems = o.getOrderItems().stream()
-                    .map(orderItem -> new OrderItemDto(orderItem))
-                    .collect(Collectors.toList());
-        }
-    }
-
-
-    @Getter
-    static class OrderItemDto{
-
-        private String itemName;
-        private int orderPrice;
-        private int count;
-
-        public OrderItemDto(OrderItem orderItem) {
-            itemName = orderItem.getItem().getName();
-            orderPrice = orderItem.getOrderPrice();
-            count = orderItem.getCount();
-        }
-    }
 }
